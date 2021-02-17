@@ -17,7 +17,6 @@
 #include "led.h"
 #include <math.h>
 #include <stdio.h>
-#include "vector.h"
 
 
 #define SHOOT_BUTTON_PORT				GPIOC
@@ -125,7 +124,7 @@
 
 #define MVB_MARGIN 						0
 
-#define MVB_NUM_OF_WAVE					5
+#define MVB_NUM_OF_WAVE					15
 
 typedef struct{
 	int16_t x;
@@ -231,7 +230,7 @@ int8_t MVB_random_sign (void);
 Function prototype
 ***********************************************************************/
 /**
-*@brief 	Game engine initialization (clock, timer, adc, vector and gpio)
+*@brief 	Game engine initialization (clock, timer, adc,   and gpio)
 *@param 	None
 *@return 	None
 */
@@ -252,23 +251,23 @@ void MVB_start_update_frame (void);
 void MVB_create_player_mouse (Object_t *PlayermousePtr);
 
 /**
-*@brief 	Create balloon (Fill data into elements in array of balloon structure, then add to balloon vector)
-*@param 	Balloon vector structure pointer
+*@brief 	Create balloon (Fill data into elements in array of balloon structure, then add to balloon  )
+*@param 	Balloon   structure pointer
 *@param 	Balloon Object_t structure pointer
 *@param 	Number of balloons to create
 *@param 	Mouse Object_t structure pointer
 *@return 	None
 */
-void MVB_create_balloon (vector *balloonVectPtr,Object_t *balloonPtr, uint8_t numberToCreate, Object_t *PlayermousePtr);
+void MVB_create_balloon (Object_t *balloonPtr, uint8_t numberToCreate, Object_t *PlayermousePtr);
 
 /**
-*@brief 	Create needle (Fill data into elements in array of needle structure, then add to needle vector)
-*@param 	Needle vector structure pointer
+*@brief 	Create needle (Fill data into elements in array of needle structure, then add to needle  )
+*@param 	Needle   structure pointer
 *@param 	Needle Object_t structure pointer
 *@param 	Mouse Object_t structure pointer
 *@return 	None
 */
-void MVB_create_needle (vector *needleVectPtr, Object_t *needlePtr, Object_t *PlayermousePtr);
+void MVB_create_needle (Object_t *needlePtr, Object_t *PlayermousePtr);
 
 /**
 *@brief 	Draw player mouse
@@ -279,17 +278,17 @@ void MVB_draw_player_mouse (Object_t *PlayermousePtr);
 
 /**
 *@brief 	Draw balloon
-*@param 	Balloon vector structure pointer
+*@param 	Balloon   structure pointer
 *@return 	None
 */
-void MVB_draw_balloon (vector *balloonVectPtr);
+void MVB_draw_balloon (Object_t *balloonPtr);
 
 /**
 *@brief 	Draw needle
-*@param 	Needle vector structure pointer
+*@param 	Needle   structure pointer
 *@return 	None
 */
-void MVB_draw_needle (vector *needleVectPtr);
+void MVB_draw_needle (Object_t *needlePtr);
 
 /**
 *@brief 	Update player mouse's data
@@ -300,19 +299,19 @@ void MVB_update_player_mouse (Object_t *PlayermousePtr);
 
 /**
 *@brief 	Update balloon's data
-*@param 	Balloon vector structure pointer
+*@param 	Balloon   structure pointer
 *@param 	Mouse Object_t structure pointer
 *@return 	None
 */
-void MVB_update_balloon (vector *balloonVectPtr, Object_t *PlayermousePtr);
+void MVB_update_balloon (Object_t *balloonPtr, Object_t *PlayermousePtr);
 
 /**
 *@brief 	Update needle's data
-*@param 	Needle vector structure pointer
-*@param 	Balloon vector structure pointer
+*@param 	Needle   structure pointer
+*@param 	Balloon   structure pointer
 *@return 	None
 */
-void MVB_update_needle (vector *needleVectPtr, vector *balloonVectPtr);
+void MVB_update_needle (Object_t *needlePtr, Object_t *balloonPtr);
 
 /**
 *@brief 	Fill display with black color
