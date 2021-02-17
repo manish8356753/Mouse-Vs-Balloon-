@@ -30,11 +30,9 @@ extern Object_t Playermouse;
 extern Object_t balloon[MVB_balloon_BUFFER_SIZE] ;
 extern Object_t needle[MVB_needle_BUFFER_SIZE];
 
-extern vector balloonVect;
-extern vector needleVect;
-
 extern uint8_t currentWave;
 extern uint8_t numOfballoonInWave[MVB_NUM_OF_WAVE];
+extern uint8_t balloonCount;
 
 int main (void)
 {
@@ -49,8 +47,8 @@ int main (void)
 		MVB_create_player_mouse(&Playermouse);
 		MVB_draw_player_mouse(&Playermouse);
 
-		MVB_create_balloon(&balloonVect,balloon,numOfballoonInWave[currentWave],&Playermouse);
-		MVB_draw_balloon(&balloonVect);
+		MVB_create_balloon(balloon,numOfballoonInWave[currentWave],&Playermouse);
+		MVB_draw_balloon(balloon);
 		RNG_deinit();
 
 		MVB_start_update_frame();
@@ -64,12 +62,12 @@ int main (void)
 				MVB_update_player_mouse(&Playermouse);
 				MVB_draw_player_mouse(&Playermouse);
 
-				MVB_create_needle(&needleVect,needle,&Playermouse);
-				MVB_update_needle(&needleVect,&balloonVect);
-				MVB_draw_needle(&needleVect);
+				MVB_create_needle(needle,&Playermouse);
+				MVB_update_needle(needle,balloon);
+				MVB_draw_needle(needle);
 
-				MVB_update_balloon(&balloonVect,&Playermouse);
-				MVB_draw_balloon(&balloonVect);
+				MVB_update_balloon(balloon,&Playermouse);
+				MVB_draw_balloon(balloon);
 
 				//if collision detected between balloon and mouse, run game over instructions
 				if(Playermouse.Object_Property.aliveFlag == MVB_ALIVE_FALSE){
@@ -83,11 +81,11 @@ int main (void)
 				}
 
 				//if no balloons left, create more balloons
-				if(balloonVect.total == 0){
+				if(balloonCount == 0){
 					TIM_ctr(TIM6,STOP);
 					currentWave++;
 					RNG_init();
-					MVB_create_balloon(&balloonVect,balloon,numOfballoonInWave[currentWave],&Playermouse);
+					MVB_create_balloon(balloon,numOfballoonInWave[currentWave],&Playermouse);
 					TIM_ctr(TIM6,START);
 				}
 
